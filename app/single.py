@@ -25,7 +25,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
 
     def open(self):
         print "new client opened"
-        ChatSocketHandler.index = ChatSocketHandler.index + 1;
+        ChatSocketHandler.index = ChatSocketHandler.index + 1
         self._index = ChatSocketHandler.index
         ChatSocketHandler.pool[self._index] = self
 
