@@ -3,5 +3,6 @@
 #
 URL = [
         (r"/", "app.base.MainHandler"),
-        (r"/websocket", "app.base.ChatSocketHandler"),
+        (r"/websocket", "app.single.ChatSocketHandler"),
+        (r"/chatRoom", "app.room.ChatSocketHandler"),
       ]
