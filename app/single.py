@@ -5,11 +5,12 @@ import tornado.websocket
 import logging
 import tornado.escape
 import tornado.web
+#import uuid
 
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        #self.set_secure_cookie("user", str(uuid.uuid4()))
+        #self.set_secure_cookie("user",self.request_remote_ip)
         self.render("index.html", messages=ChatSocketHandler.cache)
 
 
@@ -24,7 +25,7 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         return True
 
     def open(self):
-        print "new client opened"
+        #if self.get_secure_cookie("user") == self.request_remote_ip:
         ChatSocketHandler.index = ChatSocketHandler.index + 1
         self._index = ChatSocketHandler.index
         ChatSocketHandler.pool[self._index] = self
@@ -46,11 +47,12 @@ class ChatSocketHandler(tornado.websocket.WebSocketHandler):
         else:
             target = sock_index + 1
 
+        cls.pool[sock_index].write_message(chat)
         if target in cls.pool:
             try:
                 cls.pool[target].write_message(chat)
-            except:
-                logging.error("Error sending message", exc_info=True)
+            except Exception, e:
+                logging.error(e, exc_info=True)
         else:
             logging.error("still not available chater ", exc_info=True)
 

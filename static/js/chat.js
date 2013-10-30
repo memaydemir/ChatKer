@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    var url = "ws://127.0.0.1:8080/websocket";
+    //var url = "ws://127.0.0.1:8080/websocket";
+    var url = "ws://192.168.0.135:8080/websocket";
     var socket;  
     if (!window.WebSocket) {  
         window.WebSocket = window.MozWebSocket;  
